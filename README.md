@@ -30,9 +30,12 @@ A Python Streamlit application that uses OpenAI's Whisper and GPT-3 to summarize
 
 # Deploy using Docker
 - Build docker `docker build -t summarizer:latest`
-- Run via `docker run -it --gpus=all -e "API_KEY=YOUR_API_KEY" -p 8501:8501 summarizer:latest
-Run the application by executing streamlit run app.py
-Enter the Youtube video URL and let the application do the rest
+- Run via
+    ```
+        docker run -it --gpus=all -e "API_KEY=YOUR_API_KEY" -p 8501:8501 summarizer:latest`
+    ```
+- Go to `http://0.0.0.0:8501/` in your browser
+- Enter the Youtube video URL and let the application do the rest
 
 # Note
 This application is for demonstration purposes only and is not intended for commercial use. The summary generated may not be 100% accurate, please use at your own discretion.
