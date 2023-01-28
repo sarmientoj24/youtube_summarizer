@@ -8,7 +8,7 @@ from summarizer import generate_summary
 from youtube import YoutubeDownloader
 
 # Variables
-REGEX = "^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$"
+REGEX = "^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
 DOWNLOAD_PATH = os.path.join(os.getcwd(), "downloads")
 DEFAULT_THUMB = os.path.join(os.getcwd(), "assets", "default-thumb.png")
 MAX_DURATION = 720
@@ -78,14 +78,20 @@ if st.button("Submit"):
                 )
             else:
                 # Transcribe Audio
-                with st.spinner("Transcribing audio. May take a minute..."):
-                    transcription = transcribe_audio(model, audio_path)
+                try:
+                    with st.spinner("Transcribing audio. May take a minute..."):
+                        transcription = transcribe_audio(model, audio_path)
 
-                # Summarize
-                with st.spinner("Summarizing..."):
-                    summarized_text = generate_summary(transcription, max_length=tokens)
+                    # Summarize
+                    with st.spinner("Summarizing..."):
+                        summarized_text = generate_summary(transcription, max_length=tokens)
 
-                st.header("Summary")
-                st.markdown(summarized_text)
+                    st.header("Summary")
+                    st.markdown(summarized_text)
+                except:
+                    st.error("""
+                        Ooops! There's some error in the backend! May be caused by many concurrent users and the server is being overloaded. Sorry for that. 
+                        Please try after 2 minutes.
+                    """)
     else:
         st.warning("Please add a valid Youtube Link!")
