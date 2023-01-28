@@ -11,7 +11,7 @@ from youtube import YoutubeDownloader
 REGEX = "^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
 DOWNLOAD_PATH = os.path.join(os.getcwd(), "downloads")
 DEFAULT_THUMB = os.path.join(os.getcwd(), "assets", "default-thumb.png")
-MAX_DURATION = 720
+MAX_DURATION = 900
 WHISPER_MODEL = "medium.en"
 DOWNLOAD_DIR = os.path.join(os.path.expanduser("~"), ".cache")
 
@@ -35,7 +35,11 @@ model = load_application_model()
 st.title("Youtube Summarizer")
 st.header("Summarize Youtube Audio")
 st.text("By James Andrew")
-st.info("Maximum Video Length is 12 mins (for now). Please do not spam.", icon="🤖")
+st.info("Maximum Video Length is 15 mins (for now). Please do not spam.", icon="🤖")
+st.warning(
+    "I'm using a small server. You may encounter errors as the concurrent users increase. Apologies!",
+    icon="🤖",
+)
 
 url = st.text_input("Youtube URL", "")
 summary = st.selectbox("Length of Summary", ("Short", "Long"))
@@ -79,19 +83,23 @@ if st.button("Submit"):
             else:
                 # Transcribe Audio
                 try:
-                    with st.spinner("Transcribing audio. May take a minute..."):
+                    with st.spinner("Transcribing audio. May take a minute or two..."):
                         transcription = transcribe_audio(model, audio_path)
 
                     # Summarize
                     with st.spinner("Summarizing..."):
-                        summarized_text = generate_summary(transcription, max_length=tokens)
+                        summarized_text = generate_summary(
+                            transcription, max_length=tokens
+                        )
 
                     st.header("Summary")
                     st.markdown(summarized_text)
-                except:
-                    st.error("""
-                        Ooops! There's some error in the backend! May be caused by many concurrent users and the server is being overloaded. Sorry for that. 
+                except Exception:
+                    st.error(
+                        """
+                        Ooops! There's some error in the backend! May be caused by many concurrent users and the server is being overloaded. Sorry for that.
                         Please try after 2 minutes.
-                    """)
+                    """
+                    )
     else:
         st.warning("Please add a valid Youtube Link!")
