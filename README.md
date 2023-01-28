@@ -2,6 +2,8 @@
 
 A Python Streamlit application that uses OpenAI's Whisper and GPT-3 to summarize a Youtube video.
 
+![](assets/test-summarzer.gif)
+
 ## Features
 - Extracts audio from a Youtube video
 - Runs transcription using OpenAI's Whisper
