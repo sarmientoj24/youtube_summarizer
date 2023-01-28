@@ -2,6 +2,9 @@
 
 A Python Streamlit application that uses OpenAI's Whisper and GPT-3 to summarize a Youtube video.
 
+![diagram](assets/ytsummarizer.jpg)
+
+## Sample Screenshot
 ![](assets/test-summarzer.gif)
 
 ## Features
@@ -10,12 +13,12 @@ A Python Streamlit application that uses OpenAI's Whisper and GPT-3 to summarize
 - Summarizes the transcription using OpenAI's GPT-3
 - User-friendly Streamlit UI
 
-# Requirements
+## Requirements
 - Python 3.9+
 - Streamlit
 - See `requirements.txt`
 
-# Usage (Local)
+## Usage (Local)
 - Clone the repository
 - Install the required packages by running `pip install -r requirements.txt`
 - Set Open API key
@@ -28,7 +31,7 @@ A Python Streamlit application that uses OpenAI's Whisper and GPT-3 to summarize
     ```
 - Go to localhost:8501 on your browser
 
-# Deploy using Docker
+## Deploy using Docker
 - Build docker `docker build -t summarizer:latest`
 - Run via
     ```
@@ -37,10 +40,10 @@ A Python Streamlit application that uses OpenAI's Whisper and GPT-3 to summarize
 - Go to `http://localhost:8501/` in your browser
 - Enter the Youtube video URL and let the application do the rest
 
-# Note
+## Note
 This application is for demonstration purposes only and is not intended for commercial use. The summary generated may not be 100% accurate, please use at your own discretion.
 
-# Conclusion
+## Conclusion
 This application demonstrates the power of AI in natural language processing and text summarization. It is a great tool for quickly understanding the main points of a video and save time. Streamlit makes it easy to use and understand the results. With OpenAI's Whisper and GPT-3, it allows easy and accurate transcriptions and summarization.
 
 # SEO Optimization
