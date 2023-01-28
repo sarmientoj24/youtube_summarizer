@@ -6,7 +6,6 @@ import whisper
 
 from summarizer import generate_summary
 from youtube import YoutubeDownloader
-from setup_whisper import DOWNLOAD_DIR
 
 # Variables
 REGEX = "^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$"
@@ -14,6 +13,7 @@ DOWNLOAD_PATH = os.path.join(os.getcwd(), "downloads")
 DEFAULT_THUMB = os.path.join(os.getcwd(), "assets", "default-thumb.png")
 MAX_DURATION = 720
 WHISPER_MODEL = "medium.en"
+DOWNLOAD_DIR = os.path.join(os.path.expanduser("~"), ".cache")
 
 
 # Functions
@@ -23,13 +23,13 @@ def transcribe_audio(model, filename, verbose=False, fp16=True, language="en"):
 
 
 @st.cache()
-def load_whisper_model(model_name=WHISPER_MODEL):
+def load_application_model(model_name=WHISPER_MODEL):
     model = whisper.load_model(model_name, download_root=DOWNLOAD_DIR)
     return model
 
 
 # Load whisper model
-model = load_whisper_model()
+model = load_application_model()
 
 # UI
 st.title("Youtube Summarizer")
@@ -44,7 +44,7 @@ summary = st.selectbox("Length of Summary", ("Short", "Long"))
 if st.button("Submit"):
     # Get Length of summary
     if summary == "Short":
-        tokens = 60
+        tokens = 80
     else:
         tokens = 120
 
